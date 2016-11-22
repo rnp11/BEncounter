@@ -1,3 +1,9 @@
+/**
+Author: Matthew Baning
+
+Version: 1.0.0
+*/
+
 import java.util.*;
 
 
