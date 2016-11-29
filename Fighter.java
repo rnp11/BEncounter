@@ -1,16 +1,10 @@
-/**
-Author: Matthew Baning
-
-Version: 1.0.0
-*/
-
 import java.util.*;
 
 
 public class Fighter
 {
    private int sPoints = 0;//skill points
-   private int defHealth = 150;//default health
+   private int defHealth = 250;//default health
    private int defLevel = 1;//Default/starting level of fighter
    private int defMagic = 50;//default amount of magic in pool
    private int level;//level of fighter
@@ -26,6 +20,13 @@ public class Fighter
    private int hpPool;
    private int mpPool;
    private String name;
+   private String attribute;
+   private String weakness;
+   private String blocks;
+   
+   
+   
+   
 
    public Fighter()
    {
@@ -104,7 +105,7 @@ public class Fighter
    {
       mpPool = magic;
    }
-   
+   //return left over magic points
    public int getMpPool()
    {
       return mpPool;
@@ -118,7 +119,7 @@ public class Fighter
    {
       return name;
    }
-   
+   //Method to implement damage against a target
    public void takeDamage(int dmg)
    {
       hpPool = hpPool - dmg;
@@ -137,11 +138,12 @@ public class Fighter
          System.out.println(this.getName()+"'s hp is now at "+ this.getHpPool()+"/"+this.getHealth()+".");
       }   
    }
-   
+   //Physical attack
    public void attack(Fighter target)
    {
       double atkMultiplyer = 2.5;
       double randAtk = (atkMultiplyer*Math.random());
+      
       
       int dmg = (int)(phyPwr*randAtk);
       System.out.println(this.getName()+" attacks "+target.getName());
@@ -160,11 +162,116 @@ public class Fighter
                
       target.takeDamage(dmg);
       
+      
+   }
+      
+   //using a magical skill   
+   public void magicAtk(Fighter target, magicSkill skill)
+   {
+      
+      double atkMultiplyer = 2.5;
+      double randAtk = (atkMultiplyer*Math.random());
+      mpPool-=10;
+      
+      int dmg = (int)(magPwr*randAtk);
+      System.out.println(this.getName()+" attacks "+target.getName()+" with "+skill.getSkillName());
+      if(randAtk < 1)
+      {
+         System.out.println(target.getName() + " Blocked the attack!!!");
+      }
+      else if(randAtk > 2)
+      {
+         System.out.println("CRITICAL HIT!!!");
+      }
+      else
+      {
+         System.out.println("Good hit!");
+      }
+      
+      if(skill.getSkillAtrb().equalsIgnoreCase(target.getWeakness()))
+      {
+         System.out.println(target.getName()+" is weak against this type of attack and takes 2xDamage!");
+         target.takeDamage(dmg*2);
+      }
+      else if(skill.getSkillAtrb().equalsIgnoreCase(target.getResist()))
+      {
+         System.out.println(target.getName()+" is resistant against this type of attack, Damage reduced!");
+         target.takeDamage(dmg/2);
+      }
+      else            
+      {   
+         target.takeDamage(dmg);
+      }
+      System.out.println(this.getName()+"'s MP is now at "+ this.getMpPool()+"/"+this.getMagic());  
+      
+   }
+   
+   //New Fighter attributes
+   private void setAttribute(String atrb)
+   {
+      if(atrb.equalsIgnoreCase("fire"))
+      {
+         attribute = "fire";
+         weakness = "water";
+         blocks = "earth";  
+      }
+      else if(atrb.equalsIgnoreCase("water"))
+      {
+         attribute = "water";
+         weakness = "air";
+         blocks = "fire";
+      }
+      else if(atrb.equalsIgnoreCase("air"))
+      {
+         attribute = "air";
+         weakness = "earth";
+         blocks = "water";
+      }
+      else if(atrb.equalsIgnoreCase("earth"))
+      {
+         attribute = "earth";
+         weakness = "fire";
+         blocks = "air";
+      }
+      else
+      {
+         attribute = "none";
+         weakness = "none";
+      }
+         
+   }
+   //returning fighter resistant attribute
+   public String getResist()
+   {
+      return blocks;
+   }
+   //return Fighter Attribute
+   public String getAttribute()
+   {
+      return attribute;
+   }
+   //return Fighter Weakness
+   public String getWeakness()
+   {
+      return weakness;
    }
    /*****************************************************************/
    //TESTING THE CLASS
+   //changed testing class to implement a magical attack instead of physical
+   //this will loop a battle sequence(menu and implemenation will be in the battle encounter class)
    public static void main(String[] args)
    {
+      magicSkill fire = new magicSkill();
+      magicSkill water = new magicSkill();
+      magicSkill air = new magicSkill();
+      magicSkill earth = new magicSkill();
+      
+   
+      fire.attackSkill(1);
+      water.attackSkill(2);
+      air.attackSkill(3);
+      earth.attackSkill(4);
+   
       Fighter hero = new Fighter();
       hero.setName("hero");
       hero.setHealth(5);
@@ -172,6 +279,7 @@ public class Fighter
       enemy.setName("BadGuy");
       enemy.setHealth(5);
       hero.addXPLevel(105);
+      enemy.setAttribute("earth");
       /*
       System.out.println("Hero Level = "+ hero.getLevel()+"\nHero health = "+hero.getHpPool()+"\nHero Magic = " + hero.getMpPool());
       enemy.attack(hero);
@@ -188,7 +296,7 @@ public class Fighter
             
             enemy.attack(hero);
             System.out.println("________________");
-            hero.attack(enemy);
+            hero.magicAtk(enemy, fire);
             System.out.println("****************");
          }
          else if(hero.getHpPool() > 0 && enemy.getHpPool() <= 0)
