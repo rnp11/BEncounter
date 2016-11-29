@@ -45,6 +45,9 @@ public class ItemBag
      {
          for(int i; i<=mybag.size(); i++)
             System.out.println(m.toString());
+         System.out.println("Choose which item to use:");
+         sc.next();
+            
      }
       
    }
