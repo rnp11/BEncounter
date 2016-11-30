@@ -6,7 +6,7 @@ public class ItemBag
    private ArrayList<Items> list = new ArrayList<Items>();
    private ArrayList<Items> mybag = new ArrayList<Items>();
    private Fighter f = new Fighter();
-   private final int MAX_ITEMS= 5;
+   private final int MAX_ITEMS= 6;
    private Items m;
    Scanner sc = new Scanner(System.in);
    
@@ -19,7 +19,7 @@ public class ItemBag
       }
    }
    /*
-      pulls one item out of the list and adds it to the bag
+      pulls one item out of the list and adds it to the bag randomly
    */
    public void createBag()
    {
@@ -32,10 +32,16 @@ public class ItemBag
          z--;
       } 
    }
+   
+   public Items giveOne()
+   {
+      int first = 0;
+      Items t = mybag.get(first);
+      mybag.remove(first);
+      return t;
+   }
    /*
-     use of the item before attack 
-     
-      
+     use of the item before attack   
    */
      public void useItem()
    {
@@ -43,7 +49,7 @@ public class ItemBag
      sc.next();
      if(sc.next().equalsIgnoreCase("y"))
      {
-         for(int i; i<=mybag.size(); i++)
+         for(int i=0;i<=mybag.size(); i++)
            {
             System.out.print(i+1);
             System.out.println(m.toString());
@@ -69,7 +75,7 @@ public class ItemBag
       ItemBag bag = new ItemBag();
       for(int i = 0; i < 5; i++)
       {
-         bag1.add(bag.ItemBag());
+         bag1.add(bag.giveOne());
          System.out.println(i);
       }   
      } 
