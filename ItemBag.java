@@ -65,18 +65,43 @@ public class ItemBag
             case 5: f.setMagic(m.getMGChange());
             case 6: f.setMagic(m.getMGChange());
          }
-            
-     }
-      
-   }
+        }
+     }       
+    
+    
+     
+     public void reset()
+     {
+       while(mybag.size() != 0 )
+      {
+         this.giveOne();
+      }
+      list = new ArrayList<Items>();;
+      mybag = new ArrayList<Items>();;
+      for(int i = 0; i < MAX_ITEMS; i++)
+      {
+         Items g = new Items();
+         list.add(g);
+      }
+      this.createBag(); 
+      }
+
+     
    public static void main(String[] args)
    {
       ArrayList<Items> bag1 = new ArrayList<Items>();;
       ItemBag bag = new ItemBag();
+      bag.createBag();
       for(int i = 0; i < 5; i++)
       {
          bag1.add(bag.giveOne());
-         System.out.println(i);
       }   
+      System.out.println(bag1.toString());
+      bag.reset();
+     
+      for(int i= 0; i<5;i++)
+         bag1.add(bag.giveOne());
+         
+      System.out.println(bag1.toString());   
      } 
 }
