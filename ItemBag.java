@@ -6,7 +6,7 @@ public class ItemBag
    private ArrayList<Items> list = new ArrayList<Items>();
    private ArrayList<Items> mybag = new ArrayList<Items>();
    private Fighter f = new Fighter();
-   private final int MAX_ITEMS= 15;
+   private final int MAX_ITEMS= 5;
    private Items m;
    Scanner sc = new Scanner(System.in);
    
@@ -44,9 +44,21 @@ public class ItemBag
      if(sc.next().equalsIgnoreCase("y"))
      {
          for(int i; i<=mybag.size(); i++)
+           {
+            System.out.print(i+1);
             System.out.println(m.toString());
+            }
          System.out.println("Choose which item to use:");
-         sc.next();
+         sc.nextInt();
+         int placement=sc.nextInt();
+         switch(placement){
+            case 1: m.getHPChange() + f.setHealth();
+            case 2: m.getHPChange() + f.setHealth();
+            case 3: m.getHPChange() + f.setHealth();
+            case 4: m.getMGChange() + f.setMagic(); 
+            case 5: m.getMGChange() + f.setMagic();
+            case 6: m.getMGChange() + f.setMagic();
+         }
             
      }
       
