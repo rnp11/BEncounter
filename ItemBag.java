@@ -52,12 +52,12 @@ public class ItemBag
          sc.nextInt();
          int placement=sc.nextInt();
          switch(placement){
-            case 1: m.getHPChange() + f.setHealth();
-            case 2: m.getHPChange() + f.setHealth();
-            case 3: m.getHPChange() + f.setHealth();
-            case 4: m.getMGChange() + f.setMagic(); 
-            case 5: m.getMGChange() + f.setMagic();
-            case 6: m.getMGChange() + f.setMagic();
+            case 1: f.setHealth(m.getHPChange());
+            case 2: f.setHealth(m.getHPChange());
+            case 3: f.setHealth(m.getHPChange());
+            case 4: f.setMagic(m.getMGChange()); 
+            case 5: f.setMagic(m.getMGChange());
+            case 6: f.setMagic(m.getMGChange());
          }
             
      }
