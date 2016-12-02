@@ -1,5 +1,13 @@
 import java.util.*;
 
+/********
+   Creates an Item Bag for the user ITems
+
+@author Robbyn Pocock
+@coauthor Matt Baning and WenWen Xu
+@version 1.0
+********/
+
 public class ItemBag
 {
 
@@ -19,6 +27,7 @@ public class ItemBag
       }
    }
    /*
+      method: createBag()
       pulls one item out of the list and adds it to the bag randomly
    */
    public void createBag()
@@ -32,7 +41,10 @@ public class ItemBag
          z--;
       } 
    }
-   
+   /*
+      method: giveOne()
+      puts one item into an empty bag
+   */
    public Items giveOne()
    {
       int first = 0;
@@ -41,7 +53,8 @@ public class ItemBag
       return t;
    }
    /*
-     use of the item before attack   
+      method: useItem()
+     use of the item   
    */
      public void useItem()
    {
@@ -67,9 +80,10 @@ public class ItemBag
          }
         }
      }       
-    
-    
-     
+    /*
+      method: reset()
+      resets the bag 
+     */
      public void reset()
      {
        while(mybag.size() != 0 )
@@ -99,9 +113,6 @@ public class ItemBag
       System.out.println(bag1.toString());
       bag.reset();
      
-      for(int i= 0; i<5;i++)
-         bag1.add(bag.giveOne());
-         
-      System.out.println(bag1.toString());   
+        
      } 
 }
