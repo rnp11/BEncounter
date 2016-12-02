@@ -1,3 +1,8 @@
+/*
+Group 8 
+bEncounter.java
+*/
+
 public class bEncounter
 {
 	public fighter;
