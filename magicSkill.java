@@ -1,5 +1,8 @@
 import java.util.*;
-
+/**
+Author: Matthew Baning
+Co-Author: Robbyn Pocock and WenWen Xu
+*/
 public class magicSkill
 {
 
@@ -11,10 +14,10 @@ public class magicSkill
       skillName = "None";
       skillAtrb = "None";
    }
-   
-   
-  
-   
+   /**
+   Method: attackSkill()
+   Purpose: sets the skill name the an element to a new skill 
+   */
    public void attackSkill(int skillNum)
    {
       if(skillNum == 1)
@@ -38,12 +41,19 @@ public class magicSkill
          skillAtrb = "Earth";
       }
    }
-   
+   /**
+   Method: getSkillName()
+   Purpose: returns skill name
+   */
    public String getSkillName()
    {
       return skillName;
    }
-    public String getSkillAtrb()
+   /**
+   Method: getSkillAtrb()
+   Purpose: returns skill attribute
+   */
+   public String getSkillAtrb()
    {
       return skillAtrb;
    }

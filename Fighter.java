@@ -1,5 +1,8 @@
 import java.util.*;
-
+/**
+Author: Matthew Baning
+Co-Author: Robbyn Pocock and WenWen Xu
+*/
 
 public class Fighter
 {
@@ -27,7 +30,9 @@ public class Fighter
    
    
    
-
+   /**
+   Default Constructor
+   */
    public Fighter()
    {
       health = defHealth;
@@ -36,8 +41,15 @@ public class Fighter
       xp = defXp;
       phyPwr = defPhy;
       magPwr = defMag;
+      hpPool = health;
+      mpPool = magic;
    }
-   
+   /**
+   Method: addXPLevel
+   Purpose: adds experience to players current experience counter
+            then when xp threshold is met, level is incremented 
+            and player stats increase.
+   */
    public void addXPLevel(int newXP)// adds xp and increments level if threshold is met
    {
       xp = xp + newXP;
@@ -58,68 +70,109 @@ public class Fighter
       }   
          
    }
-   
-   
+   /**
+   Method: setLevel()
+   Purpose: manually set player level with out additional XP
+            required.
+   */
    public void setLevel(int lev)
    {
       level = lev;
    }  
-   
+   /**
+   Method: getLevel()
+   Purpose: Returns current level.   
+   */
    public int getLevel()
    {
       return level;
    }
-   
+   /**
+   Method: setHealth()
+   Purpose: increments and sets health points
+   */
    public void setHealth(int hp)
    {
       health += hp;
       hpPool = health;
    }
-   
+   /**
+   Method: getHealth()
+   Purpose: returns current max health
+   */
    public int getHealth()
    {
       return health;
    }
-   
+   /**
+   Method: setMagic()
+   Purpose: increments and sets magic points
+   */
    public void setMagic(int mp)
    {
       magic += mp;
       mpPool = magic;
    }
-   
+   /**
+   Method: getMagic()
+   Purpose: returns current max magic points
+   */
    public int getMagic()
    {
       return magic;
    }
-   
+   /**
+   Method: resetHpPool()
+   Purpose: resets HP Pool to current max Health Points
+   */
    public void resetHpPool()
    {
       hpPool = health;
    }
+   /**
+   Method: getHpPool()
+   Purpose: returns current hp in HP Pool
+   */
    public int getHpPool()
    {
       return hpPool;
    }
-   
+   /**
+   Method: resetMpPool()
+   Purpose: resets mp pool to current max Magic points
+   */
    public void resetMpPool()
    {
       mpPool = magic;
    }
-   //return left over magic points
+   /**
+   Method: getMpPool()
+   Purpose: return left over magic points
+   */
    public int getMpPool()
    {
       return mpPool;
    }
-   
+   /**
+   Method: setName()
+   Purpose: Sets fighter's name
+   */
    public void setName(String nam)
    {
       name = nam;
    }
+   /**
+   Method: getName()
+   Purpose: returns fighter's name
+   */
    public String getName()
    {
       return name;
    }
-   //Method to implement damage against a target
+   /**
+   Method: takeDamage()
+   Purpose: implements damage to a target from an attack
+   */
    public void takeDamage(int dmg)
    {
       hpPool = hpPool - dmg;
@@ -138,7 +191,10 @@ public class Fighter
          System.out.println(this.getName()+"'s hp is now at "+ this.getHpPool()+"/"+this.getHealth()+".");
       }   
    }
-   //Physical attack
+   /**
+   Method: attack()
+   Purpose: Calculates how much damage the attack will be and uses takeDamage() to implement the attack. uses phyPwr as multiplier
+   */
    public void attack(Fighter target)
    {
       double atkMultiplyer = 2.5;
@@ -165,7 +221,10 @@ public class Fighter
       
    }
       
-   //using a magical skill   
+   /**
+   Method: magicAtk()
+   Purpose: Similar to attack but uses skills instead and uses magPwr instead of phyPwr as its multilier
+   */   
    public void magicAtk(Fighter target, magicSkill skill)
    {
       
@@ -206,8 +265,12 @@ public class Fighter
       
    }
    
-   //New Fighter attributes
-   private void setAttribute(String atrb)
+   /**
+   Method: setAttribute()
+   Purpose: sets the attribute of the fighter. determins weakness and resistances
+            resistances are called "blocks"
+   */
+   public void setAttribute(String atrb)
    {
       if(atrb.equalsIgnoreCase("fire"))
       {
@@ -219,7 +282,7 @@ public class Fighter
       {
          attribute = "water";
          weakness = "air";
-         blocks = "fire";
+         blocks = "fire";//Resistance
       }
       else if(atrb.equalsIgnoreCase("air"))
       {
@@ -240,80 +303,29 @@ public class Fighter
       }
          
    }
-   //returning fighter resistant attribute
+   /**
+   Method: getResist()
+   Purpose: returns blocks (resistance)
+   */
    public String getResist()
    {
       return blocks;
    }
-   //return Fighter Attribute
+   /**
+   Method: getAttribute()
+   Purpose: retuns attribute
+   */
    public String getAttribute()
    {
       return attribute;
    }
-   //return Fighter Weakness
+   /**
+   Method: getWeakness()
+   Purpose: returns weakness
+   */
    public String getWeakness()
    {
       return weakness;
    }
-   /*****************************************************************/
-   //TESTING THE CLASS
-   //changed testing class to implement a magical attack instead of physical
-   //this will loop a battle sequence(menu and implemenation will be in the battle encounter class)
-   public static void main(String[] args)
-   {
-      magicSkill fire = new magicSkill();
-      magicSkill water = new magicSkill();
-      magicSkill air = new magicSkill();
-      magicSkill earth = new magicSkill();
-      
-   
-      fire.attackSkill(1);
-      water.attackSkill(2);
-      air.attackSkill(3);
-      earth.attackSkill(4);
-   
-      Fighter hero = new Fighter();
-      hero.setName("hero");
-      hero.setHealth(5);
-      Fighter enemy = new Fighter();
-      enemy.setName("BadGuy");
-      enemy.setHealth(5);
-      hero.addXPLevel(105);
-      enemy.setAttribute("earth");
-      /*
-      System.out.println("Hero Level = "+ hero.getLevel()+"\nHero health = "+hero.getHpPool()+"\nHero Magic = " + hero.getMpPool());
-      enemy.attack(hero);
-      System.out.println("Hero Level = "+ hero.getLevel()+"\nHero health = "+hero.getHpPool()+"\nHero Magic = " + hero.getMpPool());
-      System.out.println("_________________________________________________________________________________");
-      System.out.println("Enemy Level = "+ enemy.getLevel()+"\nEnemy health = "+enemy.getHpPool()+"\nEnemy Magic = " + enemy.getMpPool());
-      hero.attack(enemy);
-      System.out.println("Enemy Level = "+ enemy.getLevel()+"\nEnemy health = "+enemy.getHpPool()+"\nEnemy Magic = " + enemy.getMpPool());
-      */for(int i = 0; i < 10; i++)
-      {
-         if(hero.getHpPool() > 0 && enemy.getHpPool() > 0)
-         {
-            System.out.println("****************");
-            
-            enemy.attack(hero);
-            System.out.println("________________");
-            hero.magicAtk(enemy, fire);
-            System.out.println("****************");
-         }
-         else if(hero.getHpPool() > 0 && enemy.getHpPool() <= 0)
-         {
-            System.out.println(hero.getName()+" has Won!");
-            break;
-         }
-         else if(enemy.getHpPool() > 0 && hero.getHpPool() <= 0)
-         {
-            System.out.println(enemy.getName()+" has Won! GAME OVER!!!");
-            break;
-         }
-         else
-         {
-            System.out.println("Draw!");
-            break;
-         }      
-      }   
-   }
+
 }
