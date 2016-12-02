@@ -327,5 +327,5 @@ public class Fighter
    {
       return weakness;
    }
-
+   /* End */
 }
